@@ -110,6 +110,13 @@ public class LoggerManager {
         return currentLogLevel >= LEVEL_DEBUG;
     }
 
+    public void console(String tag, String msg) {
+        if (!consoleOutputEnabled) {
+            return;
+        }
+        Log.d(tag, msg);
+    }
+
     public void error(String tag, String msg) {
         if (!isErrorEnabled()) {
             return;

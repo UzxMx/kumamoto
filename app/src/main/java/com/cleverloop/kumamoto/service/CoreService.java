@@ -13,6 +13,12 @@ public class CoreService extends Service {
 
     private static final String TAG = CoreService.class.getSimpleName();
 
+    private static CoreService instance;
+
+    public static boolean shouldStart() {
+        return instance == null;
+    }
+
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -29,6 +35,15 @@ public class CoreService extends Service {
     public void onCreate() {
         super.onCreate();
 
+        instance = this;
+
         Logger.d(TAG, "onCreate");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        instance = null;
     }
 }

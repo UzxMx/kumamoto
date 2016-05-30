@@ -32,8 +32,7 @@ class ConnectionManager {
 
     private static ConnectionManager connectionManager;
 
-    private static final String HOST = "192.168.1.132";
-//    private static final String HOST = "101.200.140.48";
+    private static final String HOST = "101.200.140.48";
 
     private static final int PORT = 8081;
 
@@ -301,10 +300,12 @@ class ConnectionManager {
                         Thread.sleep(20 * 1000);
                         tryCount = 0;
                     }
+                    Log.d(TAG, "connect to server");
                     socket = new Socket();
                     socket.connect(new InetSocketAddress(HOST, PORT));
                     inputStream = socket.getInputStream();
                     outputStream = new  BufferedOutputStream(socket.getOutputStream());
+                    Log.d(TAG, "connected");
 
                     sendIdentity();
 

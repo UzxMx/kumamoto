@@ -21,6 +21,10 @@ public class Logger {
         return LoggerManager.getInstance().isDebugEnabled();
     }
 
+    public static boolean isConsoleEnabled() {
+        return LoggerManager.getInstance().isConsoleOutputEnabled();
+    }
+
     public static void e(String tag, String msg) {
         LoggerManager.getInstance().error(tag, msg);
     }
@@ -35,5 +39,15 @@ public class Logger {
 
     public static void d(String tag, String msg) {
         LoggerManager.getInstance().debug(tag, msg);
+    }
+
+    /**
+     * Output to console
+     *
+     * @param tag
+     * @param msg
+     */
+    public static void c(String tag, String msg) {
+        LoggerManager.getInstance().console(tag, msg);
     }
 }

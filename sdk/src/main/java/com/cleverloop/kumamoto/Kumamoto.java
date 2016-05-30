@@ -36,6 +36,8 @@ public class Kumamoto {
         instance.appId = appId;
         instance.deviceId = DeviceUtils.getDeviceIdentity(context);
 
+        ConnectionManager2.getInstance().init();
+
         ConnectionManager.getInstance();
 
         LoggerManager loggerManager = LoggerManager.getInstance();
