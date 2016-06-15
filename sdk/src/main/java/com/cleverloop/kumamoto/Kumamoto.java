@@ -36,9 +36,12 @@ public class Kumamoto {
         instance.appId = appId;
         instance.deviceId = DeviceUtils.getDeviceIdentity(context);
 
-        ConnectionManager2.getInstance().init();
+        if (!options.enabled) {
+            LoggerManager.getInstance().setCurrentLogLevel(LoggerManager.LEVEL_MIN);
+            return;
+        }
 
-        ConnectionManager.getInstance();
+        ConnectionManager.getInstance().init();
 
         LoggerManager loggerManager = LoggerManager.getInstance();
         loggerManager.setCurrentLogLevel(options.logLevel);
@@ -72,6 +75,7 @@ public class Kumamoto {
     }
 
     public static class Options {
+        public boolean enabled = true;
         public int logLevel = LoggerManager.LEVEL_MAX;
         public boolean consoleOutputEnabled = true;
 

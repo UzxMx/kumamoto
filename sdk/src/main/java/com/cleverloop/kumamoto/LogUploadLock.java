@@ -1,22 +1,25 @@
 package com.cleverloop.kumamoto;
 
 /**
- * Created by xuemingxiang on 16/5/13.
+ * Created by xuemingxiang on 16/5/31.
  */
 public class LogUploadLock {
 
-    private long lastTimeUpload;
+    private boolean uploadingLogs;
 
-    public void uploadSucceed() {
-        lastTimeUpload = System.currentTimeMillis();
+    private long startUploadingLogsTime = 0;
+
+    public boolean isUploadingLogs() {
+        if (uploadingLogs && System.currentTimeMillis() - startUploadingLogsTime > 5 * 60 * 1000) {
+            uploadingLogs = false;
+        }
+        return uploadingLogs;
     }
 
-    public boolean shouldUploadLogNow() {
-        long now = System.currentTimeMillis();
-        if (now - lastTimeUpload > 10 * 1000) {
-            return true;
-        } else {
-            return false;
+    public void setUploadingLogs(boolean uploadingLogs) {
+        this.uploadingLogs = uploadingLogs;
+        if (uploadingLogs) {
+            startUploadingLogsTime = System.currentTimeMillis();
         }
     }
 }
