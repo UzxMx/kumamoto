@@ -50,6 +50,23 @@ public class NetworkManager {
         return networkType;
     }
 
+    private NetworkInfo getActiveNetworkInfo() {
+        Context context = Kumamoto.getInstance().getContext();
+        ConnectivityManager manager = (ConnectivityManager) context.
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        return manager.getActiveNetworkInfo();
+    }
+
+    public boolean isConnectedOrConnecting() {
+        NetworkInfo networkInfo = getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnectedOrConnecting();
+    }
+
+    public boolean isConnected() {
+        NetworkInfo networkInfo = getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
+    }
+
     public enum NetworkType {
 
         UNKNOWN(0), WIFI(1), MOBILE(2), WIMAX(3), ETHERNET(4), BLUETOOTH(5);

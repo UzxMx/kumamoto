@@ -20,6 +20,8 @@ public class WebSocketConnectionManager {
 
     private static WebSocketConnectionManager instance;
 
+    private long lastTimeReceivedMessageMillis = 0;
+
     private ConnectionKeeper connectionKeeper = new ConnectionKeeper();
 
     private WebSocket webSocket;
@@ -81,7 +83,7 @@ public class WebSocketConnectionManager {
                     request.setHeader("X-Application-Id", Kumamoto.getInstance().getAppId());
                     request.setHeader("X-Device-Id", Kumamoto.getInstance().getDeviceId());
 
-                    Logger.d(TAG, "websocket connect");
+                    Log.d(TAG, "websocket connect");
 
                     synchronized (connectCallback) {
                         connectCallback.reset();
@@ -93,13 +95,13 @@ public class WebSocketConnectionManager {
                     }
 
                     if (connectCallback.failed) {
-                        Logger.d(TAG, "connection failed");
+                        Log.d(TAG, "connection failed");
                         // wait some time, then continue
                         networkStatus.connectionFailed();
                         continue;
                     }
 
-                    Logger.d(TAG, "connection succeed");
+                    Log.d(TAG, "connection succeed");
 
                     networkStatus.connectionSucceed();
 
@@ -108,9 +110,17 @@ public class WebSocketConnectionManager {
                     webSocket.setStringCallback(webSocketCallback);
                 }
 
+                lastTimeReceivedMessageMillis = System.currentTimeMillis();
                 synchronized (closedCallback) {
                     while (webSocket != null && webSocket.isOpen()) {
-                        Logger.d(TAG, "websocket is open");
+                        if (System.currentTimeMillis() - lastTimeReceivedMessageMillis > 2 * 60 * 1000) {
+                            Log.d(TAG, "not got any message during an interval");
+                            webSocket.close();
+                            webSocket = null;
+                            break;
+                        }
+                        Log.d(TAG, "websocket is open");
+                        Log.d(TAG, "network connected: " + NetworkManager.getInstance().isConnected() + " type: " + NetworkManager.getInstance().getCurrentNetworkType());
                         try {
                             closedCallback.wait(30 * 1000);
                         } catch (InterruptedException e) {
@@ -161,7 +171,7 @@ public class WebSocketConnectionManager {
 
             @Override
             public void onCompleted(Exception e, WebSocket webSocket) {
-                Logger.d(TAG, "onCompleted");
+                Log.d(TAG, "onCompleted");
 
                 if (e == null && webSocket != null) {
                     failed = false;
@@ -207,7 +217,8 @@ public class WebSocketConnectionManager {
             @Override
             public void onStringAvailable(String s) {
                 // TODO remove log
-                Logger.d(TAG, "received:" + s);
+                lastTimeReceivedMessageMillis = System.currentTimeMillis();
+                Log.d(TAG, "received:" + s);
                 // TODO May s contain multiple json content??
                 JSONObject jsonObject = null;
                 try {

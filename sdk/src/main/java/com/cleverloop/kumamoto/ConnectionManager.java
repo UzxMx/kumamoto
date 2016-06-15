@@ -31,8 +31,8 @@ public class ConnectionManager {
 //    private static final String TAG = ConnectionManager.class.getSimpleName();
     private static final String TAG = "ConnectionManager";
 
-//    private static final String HOST = "console.common-projects.top";
-    private static final String HOST = "192.168.1.132:9292";
+    private static final String HOST = "console.common-projects.top";
+//    private static final String HOST = "192.168.1.132:9292";
 
     public static final String HTTP_SCHEMA = "https://" + HOST;
 
@@ -107,7 +107,7 @@ public class ConnectionManager {
         AsyncHttpPost request = new AsyncHttpPost(url);
         request.setBody(body);
 
-        Logger.d(TAG, "handleGetDeviceInfo");
+        Log.d(TAG, "handleGetDeviceInfo");
         sendJSONObjectRequest(request, new AsyncHttpClient.JSONObjectCallback() {
             @Override
             public void onCompleted(Exception e, AsyncHttpResponse asyncHttpResponse, JSONObject jsonObject) {
