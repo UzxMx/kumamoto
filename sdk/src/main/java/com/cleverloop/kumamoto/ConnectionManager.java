@@ -99,6 +99,10 @@ public class ConnectionManager {
         return jsonObject;
     }
 
+    /**
+     *
+     * @param jsonObject nullable
+     */
     public void handleGetDeviceInfo(JSONObject jsonObject) {
         JSONObjectBody body = new JSONObjectBody(getDeviceInfo());
         Map<String, String> map = new HashMap<>();

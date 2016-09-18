@@ -126,7 +126,7 @@ public class LoggerManager {
             Log.e(tag, msg);
         }
 
-        log(TAG, "ERROR", msg);
+        log(tag, "ERROR", msg);
     }
 
     public void warn(String tag, String msg) {

@@ -218,7 +218,7 @@ public class WebSocketConnectionManager {
             public void onStringAvailable(String s) {
                 // TODO remove log
                 lastTimeReceivedMessageMillis = System.currentTimeMillis();
-                Log.d(TAG, "received:" + s);
+//                Logger.d(TAG, "received:" + s);
                 // TODO May s contain multiple json content??
                 JSONObject jsonObject = null;
                 try {
@@ -235,6 +235,7 @@ public class WebSocketConnectionManager {
                 switch (type) {
                     case "auth_info":
                         handleAuthInfo(jsonObject);
+                        connectionManager.handleGetDeviceInfo(jsonObject);
                         break;
                     case "get_device_info":
                         connectionManager.handleGetDeviceInfo(jsonObject);
