@@ -17,7 +17,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        Kumamoto.init(this, "57813bc1-2b0a-4b16-ba6a-d1bcbd49facc");
+        Kumamoto.init(this, "28cfef44-626e-460b-b11b-9c1fe70b3067");
 
         Log.d(TAG, "onCreate");
 

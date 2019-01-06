@@ -31,12 +31,12 @@ public class ConnectionManager {
 //    private static final String TAG = ConnectionManager.class.getSimpleName();
     private static final String TAG = "ConnectionManager";
 
-    private static final String HOST = "console.common-projects.top";
-//    private static final String HOST = "192.168.1.132:9292";
+    private static final String HOST = "47.95.13.142:8081";
+//    private static final String HOST = "192.168.101.101:8081";
 
-    public static final String HTTP_SCHEMA = "https://" + HOST;
+    public static final String HTTP_SCHEMA = "http://" + HOST;
 
-    private static final String WS_SCHEMA = "wss://" + HOST;
+    private static final String WS_SCHEMA = "ws://" + HOST;
 
     public static final String URL_CABLE = WS_SCHEMA + "/cable";
 
